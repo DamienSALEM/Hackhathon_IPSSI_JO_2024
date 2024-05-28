@@ -23,6 +23,7 @@ _Madi NIAKATE
 8. scikit-learn
 9. openpyxl
 10. lxml
+11. sqlachemy
 
 ## Prédictions
 

@@ -164,5 +164,7 @@ olympic_athletes.json
 olympic_hosts.xml
 olympic_medals.xlsx
 olympic_results.html
+
 /.vs
 /API/.vs
+*.csv
