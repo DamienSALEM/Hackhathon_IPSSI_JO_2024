@@ -21,17 +21,6 @@ try:
             host='127.0.0.1', port=tunnel.local_bind_port,
             db=os.getenv('DB_NAME'),
         )
-        # Exécution de la requête pour afficher les bases de données
-        cursor = connection.cursor()
-        cursor.execute("SHOW DATABASES")
-        databases = cursor.fetchall()
-
-        print("Bases de données disponibles:")
-        for db in databases:
-            print(db[0])
-        
-        # Fermer la connexion
-        cursor.close()
         connection.close()
 
     print("Connexion réussie à la base de données MySQL via le tunnel SSH.")
