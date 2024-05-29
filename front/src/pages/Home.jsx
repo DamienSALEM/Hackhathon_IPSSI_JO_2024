@@ -1,7 +1,7 @@
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import bg from "../assets/imgJO.webp";
+// import bg from "../assets/imgJO.webp";
 // import bannerParis from "../assets/bannerParis.webp";
 // import bannerParis from "../assets/banner.webp";
 import bannerParis from "../assets/newBanner.webp";
@@ -11,40 +11,16 @@ const axios = require('axios');
 
 
 const Home = () => {
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: "#17222F",
-  // backgroundColor: theme.palette.common.black,
-  color: theme.palette.common.white,
-},
-[`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-        backgroundColor: "#070F04",
-        color: "white"
-},
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#9C27B0"),
-  backgroundColor: "#9C27B0",
-  "&:hover": {
-    backgroundColor: "#7B1EA2",
-  },
-}));
-
+  const fichiers = [{"olympic medals": ["discipline_title", "medal_type", "country_name"]},
+    {"host": ["game_year", "game_season"]},
+    {"results": ["discipline_title", "country_name", "rank_position", "slug_game"]},
+    // {"athletes"}
+  ]
 
   const [datas, setDatas] = useState([]);
+  const [headers, setHeaders] = useState([]);
+
+  const arrHeaders = ["Date", "Pays", "Médaille"]
   
   let arrayTestData = [
     { Date: 'Janvier', Pays: 'France', Medaille: 'Bronze' },
@@ -52,59 +28,97 @@ const ColorButton = styled(Button)(({ theme }) => ({
     { Date: 'Février', Pays: 'USA', Medaille: 'Or' }
   ];
 
-  const getDatas = async () => {
+  // const getheaders = async() => {
+  //   try {
+  //     let arrayHeaders = await axios.get(`http://localhost:8000/getData`)
+  //     console.log("arrayHeaders: ", arrayHeaders.data)
+  //     arrHeaders.length !== 0 ?  setHeaders(arrHeaders)  : setHeaders([])
+  //     // arrayHeaders.length !== 0 ?  setHeaders(arrayHeaders)  : setHeaders([])
+  //     // return arrayHeaders.data
+  //     return arrHeaders
+  //   } catch (error) {
+  //     console.log("error: ", error);
+  //     return error
+  //   }
+  // }
+  const getheaders = async() => {
     try {
-      let datas = await axios.get(`http://localhost:8000`);
-      console.log("datas: ", datas.data);
-      setDatas(arrayTestData);
-      return datas.data;
+      arrHeaders.length !== 0 ?  setHeaders(arrHeaders)  : setHeaders([])
+      // arrayHeaders.length !== 0 ?  setHeaders(arrayHeaders)  : setHeaders([])
+      // return arrayHeaders.data
+      return arrHeaders
     } catch (error) {
       console.log("error: ", error);
-      return error;
+      return error
+    }
+  }
+
+  // const getDatas = async () => {
+  //   try {
+  //     let datas = await axios.get(`http://localhost:8000/getData`)
+  //     console.log("datas: ", datas.data)
+  //     arrayTestData.length !== 0 ?  setDatas(arrayTestData)  : setDatas([])
+  //     // datas.data.length !== 0 ?  setDatas(datas.data)  : setDatas([])
+  //     // return datas.data
+  //     return arrayTestData
+  //   } catch (error) {
+  //     console.log("error: ", error)
+  //     return error
+  //   }
+  // };
+  const getDatas = async () => {
+    try {
+      arrayTestData.length !== 0 ?  setDatas(arrayTestData)  : setDatas([])
+      // datas.data.length !== 0 ?  setDatas(datas.data)  : setDatas([])
+      // return datas.data
+      return arrayTestData
+    } catch (error) {
+      console.log("error: ", error)
+      return error
     }
   };
 
   useEffect(() => {
-    // getDatas();
-    setDatas(arrayTestData);
+    getheaders()
+    getDatas();
   }, []);
 
   return (
-    <Box sx={{ height: "100vh", overflow: "hidden" }}>
-      <Box
-        sx={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bannerParis})`,
-          backgroundRepeat: "no-repeat",
-          // backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <Box>
-          
-        </Box>
-        <TableContainer sx={{ width: "60%", maxHeight: "40%", overflowY: "scroll" }}>
-          <Table stickyHeader aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell>Citation</TableCell>
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {datas.map((data, key) => (
-                <DataRow key={key} data={data} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </Box>
-  );
+		<Box sx={{ height: "100vh", overflow: "hidden" }}>
+			<Box
+				sx={{
+					height: "100vh",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bannerParis})`,
+					backgroundRepeat: "no-repeat",
+					// backgroundPosition: "center",
+					backgroundSize: "cover",
+				}}
+			>
+				<Box></Box>
+				<TableContainer
+					sx={{ width: "60%", maxHeight: "60%", overflowY: "scroll" }}
+				>
+					<Table stickyHeader aria-label="collapsible table">
+						<TableHead>
+							<TableRow>
+								{headers.map((header) => (
+									<TableCell>{header}</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{datas.map((data, key) => (
+								<DataRow key={key} data={data} />
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</Box>
+		</Box>
+	);
 };
 
 export default Home;
