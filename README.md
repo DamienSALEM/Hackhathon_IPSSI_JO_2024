@@ -41,18 +41,19 @@ _Madi NIAKATE
    2. models:
 5. Prédire le top 20 des pays (ML)
    1. Olympic results + olympic host
-   2. models:
+   2. models: forecasting / arima
 6. Prédire les résultats des épreuves (TOP3 des pays) (gestion des exceptions comme Phelps, Teddy Riner, ...)
    1. Olympic result + olympic host + olympic athletes
-   2. models:
+   2. models: forecasting / arima
 
 ## Clustering
 
 Jointure olympic results et olympics host
+K-means, spectral clustering, HDBSCAN
 
 1. Identifier les pays en fonction des résultats des épreuves au JO (winter/summer)
    1. models:
-2. Classer les pays en fonction de leurs résultats aux JO (identifier leur position géographique en fonction de leur résultats)
+2. Classer les pays en fonction de leurs résultats aux JO (identifier leur position géographique en fonction de leur résultats) (winter/summer)
    1. models:
 
 ## Data viz
@@ -63,6 +64,12 @@ Jointure olympic results et olympics host
 2. Nombres d'épreuves à chaque JO au cours des ans /nombres de médailles. calculer le nombres d'ex aequo
    1. olympic results + olympic medals
 
+## Liste endpoint
+
+1. Recupération infos du fichier (nom fichier, filtres, page=0) -> requête BDD
+2. Récupération graph du fichier (nom du fichier) -> requête BDD + transformation des données
+3. API url pour chaque problématique (problématique, épreuve="",pays="") -> Prédiction du modèle IA + requête BDD et transformation de la données pour la création des graphs
+
 ### Autres livrables
 
 1. url de la webapp en prod
@@ -72,3 +79,9 @@ Jointure olympic results et olympics host
 ### Oral
 
 Vendredi 31/05 12h15 - 12h45 - Jury 2
+
+## TODO
+
+1. Regrouper les diverses noms des pays (angleterre, allemagne, russie)
+2. Faire un figma (demain matin 10h)
+3. Faire un swagger de l'API (demain matin)
