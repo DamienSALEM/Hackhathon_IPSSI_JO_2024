@@ -13,21 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
-// interface Props {
-// 	/**
-// 	 * Injected by the documentation to work in an iframe.
-// 	 * You won't need it on your project.
-// 	 */
-// 	window?: () => Window;
-// }
-
+import Logo from "../assets/logo.svg";
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Home', 'Fun facts', 'predictor'];
 
 const Navbar = () => {
-//   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -36,9 +27,9 @@ const Navbar = () => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
+      <Box sx={{ my: 2 }}>
+        <img src={Logo} alt="Logo" style={{ height: 60 }} />
+      </Box>
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -52,12 +43,10 @@ const Navbar = () => {
     </Box>
   );
 
-//   const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" sx={{ backgroundColor: '#416082' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -68,13 +57,9 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            MUI
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
+            <img src={Logo} alt="Logo" style={{ height: 60 }} />
+          </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
@@ -86,7 +71,6 @@ const Navbar = () => {
       </AppBar>
       <nav>
         <Drawer
-        //   container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -105,5 +89,4 @@ const Navbar = () => {
   );
 }
 
-
-export default Navbar
+export default Navbar;
