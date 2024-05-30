@@ -169,3 +169,7 @@ olympic_results.html
 /API/.vs
 *.csv
 
+#Front
+/node_modules
+/package-lock.json
+/package.json
