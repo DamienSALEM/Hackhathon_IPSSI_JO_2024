@@ -12,6 +12,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
 
 const drawerWidth = 240
@@ -31,13 +32,27 @@ const Navbar = () => {
       </Box>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        <Link to="/presentationPage">
+          <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText primary="Accueil" />
             </ListItemButton>
           </ListItem>
-        ))}
+        </Link>
+        <Link to="/">
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary="Mes données" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/predictionPage">
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary="Prédictions" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
       </List>
     </Box>
   )
@@ -60,11 +75,15 @@ const Navbar = () => {
             <img src={Logo} alt="Logo" style={{ height: 60 }} />
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+            <Link to="/presentationPage">
+              <Button sx={{ color: '#fff' }}>Accueil</Button>
+            </Link>
+            <Link to="/predictionPage">
+              <Button sx={{ color: '#fff' }}>Prédictions</Button>
+            </Link>
+            <Link to="/">
+              <Button sx={{ color: '#fff' }}>Mes données</Button>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>
