@@ -9,6 +9,7 @@ import Navbar from './components/Header'
 import Error404 from './pages/Error404'
 import Home from './pages/Home'
 import PredictionPage from './pages/PredictionPage'
+import PresentationPage from './pages/PresentationPage'
 
 const App = () => {
   return (
@@ -17,7 +18,8 @@ const App = () => {
       <Routes>
         <Route index element={<Home />} />
         <Route path="pageIntrouvable" element={<Error404 />} />
-        <Route path="predictionPage" element={<PredictionPage />} />
+        <Route path="/predictionPage" element={<PredictionPage />} />
+        <Route path="/presentationPage" element={<PresentationPage />} />
         <Route path="*" element={<Navigate to="pageIntrouvable" replace />} />
       </Routes>
     </Router>
