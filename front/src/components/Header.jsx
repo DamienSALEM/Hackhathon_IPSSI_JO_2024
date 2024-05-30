@@ -32,14 +32,14 @@ const Navbar = () => {
       </Box>
       <Divider />
       <List>
-        <Link to="/presentationPage">
+        <Link to="/">
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary="Accueil" />
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/">
+        <Link to="/rawDatasPage">
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary="Mes données" />
@@ -75,13 +75,13 @@ const Navbar = () => {
             <img src={Logo} alt="Logo" style={{ height: 60 }} />
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Link to="/presentationPage">
+            <Link to="/">
               <Button sx={{ color: '#fff' }}>Accueil</Button>
             </Link>
             <Link to="/predictionPage">
               <Button sx={{ color: '#fff' }}>Prédictions</Button>
             </Link>
-            <Link to="/">
+            <Link to="/rawDatasPage">
               <Button sx={{ color: '#fff' }}>Mes données</Button>
             </Link>
           </Box>
