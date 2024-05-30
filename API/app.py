@@ -15,7 +15,6 @@ from fastapi import APIRouter, Depends, Query
 
 ## TABLE olympic_hosts
 
-    
 
 @app.get("/olympic_hosts/count")
 async def get_olympic_hosts_count():
@@ -31,6 +30,8 @@ async def get_olympic_hosts_count():
         return {"count_olympic_hosts": count_olympic_hosts}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
 
 @app.get("/olympic_hosts/filter_by_country")
 async def filter_olympic_hosts_by_country(country_name: str):
@@ -105,12 +106,7 @@ async def get_unique_column_values(request: Request):
         return {column_name: unique_values}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-
-
-
-    
-
+        
 
 def search_by_tags_repository(db: Session, table_name: str,  filters: dict):
     try:
