@@ -1,6 +1,7 @@
 # app.py
 from connect_bd import get_metadata
 from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
@@ -15,7 +16,13 @@ from fastapi import APIRouter, Depends, Query
 
 ## TABLE olympic_hosts
 
-    
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Autoriser toutes les origines
+    allow_credentials=True,
+    allow_methods=["*"],  # Autoriser toutes les méthodes HTTP
+    allow_headers=["*"],  # Autoriser tous les en-têtes
+)
 
 @app.get("/olympic_hosts/count")
 async def get_olympic_hosts_count():
@@ -31,6 +38,8 @@ async def get_olympic_hosts_count():
         return {"count_olympic_hosts": count_olympic_hosts}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
 
 @app.get("/olympic_hosts/filter_by_country")
 async def filter_olympic_hosts_by_country(country_name: str):
@@ -78,7 +87,7 @@ def get_unique_values(db: Session, table_name: str, column_name: str):
 }"""
 
 
-@app.get("/get-unique-column/")
+@app.post("/get-unique-column/")
 async def get_unique_column_values(request: Request):
     try:
         table_info : dict = await request.json()
@@ -105,12 +114,7 @@ async def get_unique_column_values(request: Request):
         return {column_name: unique_values}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-
-
-
-    
-
+        
 
 def search_by_tags_repository(db: Session, table_name: str,  filters: dict):
     try:
@@ -135,7 +139,7 @@ def search_by_tags_repository(db: Session, table_name: str,  filters: dict):
    "game_year" : "2002"
    game_season : "Winter"
 }"""
-@app.router.get("/search-tag")
+@app.router.post("/search-tag")
 async def search_by_tags_controller(
     request: Request,
     ):
@@ -171,15 +175,17 @@ def search_athletes_repository(db, table_name, athlete_full_name):
     except Exception as e:
         raise e
 
-@app.router.get("/search-athletes")
-def get_athletes () : 
+@app.router.post("/search-athletes")
+async def get_athletes (request: Request) : 
     try : 
+        athelete_full_name = await request.json()
         metadata = get_metadata()
         olympic_athletes = metadata["olympic_athletes"]
         db = metadata["session"]
         tunnel = metadata["tunnel"]
 
-        results = search_athletes_repository(db, olympic_athletes, "Michael Phelps")
+
+        results = search_athletes_repository(db, olympic_athletes, athelete_full_name['name'])
         db.close()
         tunnel.stop()
         return results
