@@ -69,6 +69,7 @@ K-means, spectral clustering, HDBSCAN
 1. Recupération infos du fichier (nom fichier, filtres, page=0) -> requête BDD
 2. Récupération graph du fichier (nom du fichier) -> requête BDD + transformation des données
 3. API url pour chaque problématique (problématique, épreuve="",pays="") -> Prédiction du modèle IA + requête BDD et transformation de la données pour la création des graphs
+4. Récupération des infos pour les listes déroulantes (type, nom fichier="") -> requête BDD (avoir la liste des tables, la liste des colonnes à utiliser dans les listes, ...)
 
 ### Autres livrables
 
