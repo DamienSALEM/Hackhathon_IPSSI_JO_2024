@@ -79,7 +79,7 @@ def get_unique_values(db: Session, table_name: str, column_name: str):
 }"""
 
 
-@app.get("/get-unique-column/")
+@app.post("/get-unique-column/")
 async def get_unique_column_values(request: Request):
     try:
         table_info : dict = await request.json()
@@ -131,7 +131,7 @@ def search_by_tags_repository(db: Session, table_name: str,  filters: dict):
    "game_year" : "2002"
    game_season : "Winter"
 }"""
-@app.router.get("/search-tag")
+@app.router.post("/search-tag")
 async def search_by_tags_controller(
     request: Request,
     ):
@@ -167,15 +167,17 @@ def search_athletes_repository(db, table_name, athlete_full_name):
     except Exception as e:
         raise e
 
-@app.router.get("/search-athletes")
-def get_athletes () : 
+@app.router.post("/search-athletes")
+async def get_athletes (request: Request) : 
     try : 
+        athelete_full_name = await request.json()
         metadata = get_metadata()
         olympic_athletes = metadata["olympic_athletes"]
         db = metadata["session"]
         tunnel = metadata["tunnel"]
 
-        results = search_athletes_repository(db, olympic_athletes, "Michael Phelps")
+
+        results = search_athletes_repository(db, olympic_athletes, athelete_full_name['name'])
         db.close()
         tunnel.stop()
         return results
