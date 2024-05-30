@@ -1,6 +1,7 @@
 # app.py
 from connect_bd import get_metadata
 from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
@@ -15,6 +16,13 @@ from fastapi import APIRouter, Depends, Query
 
 ## TABLE olympic_hosts
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Autoriser toutes les origines
+    allow_credentials=True,
+    allow_methods=["*"],  # Autoriser toutes les méthodes HTTP
+    allow_headers=["*"],  # Autoriser tous les en-têtes
+)
 
 @app.get("/olympic_hosts/count")
 async def get_olympic_hosts_count():
