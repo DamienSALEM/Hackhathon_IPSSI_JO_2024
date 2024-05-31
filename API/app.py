@@ -1,14 +1,14 @@
 # app.py
+import numpy as np
+import pandas as pd
 from connect_bd import get_metadata
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sklearn.preprocessing import MinMaxScaler
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 from tensorflow.keras.models import load_model
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 
 app = FastAPI()
 
@@ -239,5 +239,34 @@ async def predi_pib_results_jo(request:Request)->dict:
         model_pib=load_model("models\medal_prediction_model.keras")
         prediction=model_pib.predict(data)
         return {"prediction":prediction}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+def get_country_data(db, table):
+    stmt = select(table.c.country_name, table.c.country_3_letter_code).distinct()
+    results = db.execute(stmt).fetchall()
+    return results
+
+@app.get("/country_codes")
+async def country_codes():
+    try:
+        metadata = get_metadata()
+        table = metadata['olympic_results']
+        db = metadata["session"]
+        tunnel = metadata["tunnel"]
+        results = get_country_data(db, table)
+
+        # Construire le dictionnaire de correspondance
+        correspondence = {}
+        for country_name, country_code in results:
+            if country_name not in correspondence:
+                correspondence[country_name] = set()
+            correspondence[country_name].add(country_code)
+
+        # Convertir les ensembles en listes pour la sérialisation JSON
+        correspondence = {k: list(v) for k, v in correspondence.items()}
+
+        return correspondence
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
