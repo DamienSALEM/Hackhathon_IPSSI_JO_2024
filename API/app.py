@@ -5,6 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
+from tensorflow.keras.models import load_model
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 app = FastAPI()
 
@@ -189,5 +193,51 @@ async def get_athletes (request: Request) :
         db.close()
         tunnel.stop()
         return results
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.router.post("/predictions/pib_results_jo")
+async def predi_pib_results_jo(request:Request)->dict:
+    """_summary_
+
+    Args:
+        request (Request): should be a json like this:
+        {
+            'Country Code': ['AFG', 'ALG', 'ZIM'],
+            'year': [2024, 2024, 2024],
+            'pib': [1e9, 1.5e10, 1.2e10]
+        }
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        dict: {"prediction":prediction}
+    """
+    
+    try:
+        mock_df = pd.DataFrame(request)
+        merged_df=pd.read_csv("merged_pib.csv")
+        scaler = MinMaxScaler()
+        scaler.fit(merged_df[['pib']])
+
+        mock_df['pib'] = scaler.transform(mock_df[['pib']])
+
+        seq_length = 3
+
+        def create_sequences(data, seq_length):
+            sequences = []
+            for i in range(len(data) - seq_length):
+                seq = data[i:i + seq_length]
+                sequences.append(seq)
+            return np.array(sequences)
+
+        data = create_sequences(mock_df['pib'].values, seq_length)
+
+        data = data.reshape((data.shape[0], data.shape[1], 1))
+
+        model_pib=load_model("models\medal_prediction_model.keras")
+        prediction=model_pib.predict(data)
+        return {"prediction":prediction}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
