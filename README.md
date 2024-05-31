@@ -25,6 +25,12 @@ _Madi NIAKATE
 10. lxml
 11. sqlachemy
 
+## Hebergement
+
+1. Front hébergé sur vercel
+2. back hébergé sur render
+3. BDD hébergé sur alwaysdata
+
 ## Prédictions
 
 1. Est-ce que le pays hote a de meilleur résultats que lorsqu'il est en déplacement?
@@ -73,16 +79,7 @@ K-means, spectral clustering, HDBSCAN
 
 ### Autres livrables
 
-1. url de la webapp en prod
-2. url de l'api mise en prod
-3. lien vers la présentation
-
-### Oral
-
-Vendredi 31/05 12h15 - 12h45 - Jury 2
-
-## TODO
-
-1. Regrouper les diverses noms des pays (angleterre, allemagne, russie)
-2. Faire un figma (demain matin 10h)
-3. Faire un swagger de l'API (demain matin)
+1. <https://hackhathon-ipssi-jo-2024.vercel.app/>
+2. <https://hackhathon-ipssi-jo-2024.onrender.com/docs#/default/get_unique_column_values_get_unique_column__post>
+3. <https://www.canva.com/design/DAGGnncx788/5oA7m84EDUbktExgzc3X7w/edit>
+4. <https://trello.com/b/pf1WoSwg/modele-kanban-appli-predi-jo-2024>
