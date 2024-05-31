@@ -48,9 +48,9 @@ def get_metadata():
         metadata2.reflect(bind=session.bind, only=['olympic_athletes'])
         olympic_athletes = Table('olympic_athletes', metadata2, autoload_with=session.bind)
 
-        metadata2 = MetaData()
-        metadata2.reflect(bind=session.bind, only=['olympic_results'])
-        olympic_results = Table('olympic_results', metadata2, autoload_with=session.bind)
+        metadata3 = MetaData()
+        metadata3.reflect(bind=session.bind, only=['olympic_results'])
+        olympic_results = Table('olympic_results', metadata3, autoload_with=session.bind)
 
         return {
             "olympic_hosts": olympic_hosts,

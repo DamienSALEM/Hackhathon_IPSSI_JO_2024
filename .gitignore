@@ -167,9 +167,14 @@ olympic_results.html
 
 /.vs
 /API/.vs
-*.csv
 
 #Front
 /node_modules
 /package-lock.json
 /package.json
+DATA/viz-spark/olympic_results.csv
+DATA/viz-spark/olympic_medals.csv
+DATA/viz-spark/olympic_hosts.csv
+DATA/viz-spark/olympic_athletes.csv
+DATA/Cleaning/API_NY.GDP.MKTP.KD.ZG_DS2_fr_csv_v2_580422.csv
+DATA/Cleaning/API_NY.GDP.MKTP.CD_DS2_fr_csv_v2_569289.csv
