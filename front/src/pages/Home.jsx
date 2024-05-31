@@ -249,3 +249,12 @@ const chartOptions = {
 }
 
 export default Home;
+
+const getHotes = async() => {
+  try {
+    let hotes = await axios.get("localhost:8000")
+  } catch (error) {
+    console.log("error: ", error);
+    return error
+  }
+}
