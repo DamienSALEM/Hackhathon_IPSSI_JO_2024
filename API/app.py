@@ -214,7 +214,7 @@ async def predi_pib_results_jo(request:Request)->dict:
     """
     
     try:
-        merged_df=pd.read_csv("csv/merged_pib.csv")
+        merged_df=pd.read_csv("API/csv/merged_pib.csv")
         request['year']=[2024]
         request['pib']= merged_df.loc[merged_df.groupby('country_code')['year'].idxmax()]
         mock_df = pd.DataFrame(request)
@@ -236,7 +236,7 @@ async def predi_pib_results_jo(request:Request)->dict:
 
         data = data.reshape((data.shape[0], data.shape[1], 1))
 
-        model_pib=load_model("models\medal_prediction_model.keras")
+        model_pib=load_model("API/models\medal_prediction_model.keras")
         prediction=model_pib.predict(data)
         return {"prediction":prediction}
     except Exception as e:
