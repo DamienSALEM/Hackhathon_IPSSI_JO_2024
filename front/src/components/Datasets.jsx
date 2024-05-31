@@ -6,27 +6,25 @@ import React from 'react'
 
 const dataFiles = [
   {
-    title: 'Base de données des Jeux Olympiques',
-    description:
-      'Informations officielles fournies par le Comité International Olympique (CIO) sur les performances passées des athlètes et les résultats des compétitions.',
+    title: 'Les athlètes des JO',
+    description: 'Toutes les informations sur les athlètes depuis 1960',
     fileUrl: '/data/olympic_data.csv',
   },
   {
-    title: 'Données météorologiques',
+    title: 'Les hotes des JO et PIB par année',
     description:
-      'Fournies par des services météorologiques comme Météo France, comprenant les conditions climatiques historiques et prévisionnelles pendant les périodes des Jeux Olympiques.',
+      'Toutes les informations sur les hotes + PIB par année et pays depuis 1960',
     fileUrl: '/data/weather_data.csv',
   },
   {
-    title: 'Données démographiques et socio-économiques',
+    title: 'Toutes les médailles des JO',
     description:
-      "Provenant d'organismes comme l'INSEE (Institut National de la Statistique et des Études Économiques) et d'autres bases de données publiques.",
+      'Toutes les informations sur les médailles remportées depuis 1960',
     fileUrl: '/data/demographic_data.csv',
   },
   {
-    title: 'Données sur les performances sportives',
-    description:
-      'Issues de bases de données sportives spécialisées, telles que celles de Sports Reference et Olympedia.',
+    title: 'Tous les résultats des JO',
+    description: 'Toutes les informations sur les résultats depuis 1960',
     fileUrl: '/data/sports_performance_data.csv',
   },
 ]
