@@ -13,7 +13,7 @@ export default function Storytelling() {
           <p className="text-lg text-white text-center">
             Bienvenue sur le site officiel de notre hackathon, une aventure
             palpitante qui rassemble les élèves du "Mastère Développement web,
-            Big Data & IA" d'IPSSI Paris. Nous sommes un groupe d'étudiants
+            Big Data & IA" d'IPSSI. Nous sommes un groupe d'étudiants
             passionnés, issus de différents campus de notre école, unis par un
             défi commun : mettre en pratique nos compétences pour relever un
             défi technologique de grande envergure.

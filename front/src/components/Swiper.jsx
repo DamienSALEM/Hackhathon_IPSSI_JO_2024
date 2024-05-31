@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
 
-export default function SwiperComponent({ datas }) {
+export default function SwiperComponent({ predictionResult, country }) {
   return (
     <div className="pr-10 pl-10 pt-5 pb-10">
       <Swiper
@@ -16,16 +16,11 @@ export default function SwiperComponent({ datas }) {
         navigation
       >
         <SwiperSlide className="bg-green-200 container mx-auto rounded-lg shadow-lg">
-          {datas.gameEvent}
-        </SwiperSlide>
-        <SwiperSlide className="bg-green-500 container mx-auto rounded-lg shadow-lg">
-          {datas.country}
-        </SwiperSlide>
-        <SwiperSlide className="bg-red-400 container mx-auto rounded-lg shadow-lg">
-          {datas.problematic}
-        </SwiperSlide>
-        <SwiperSlide className="bg-pink-500 container mx-auto rounded-lg shadow-lg">
-          {datas.country}
+          {predictionResult != null
+            ? `Ce pays : ${country} à obtenu ${Math.floor(
+                predictionResult,
+              )} médailles.`
+            : ''}
         </SwiperSlide>
       </Swiper>
     </div>

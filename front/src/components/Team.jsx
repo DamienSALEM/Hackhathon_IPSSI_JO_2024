@@ -5,9 +5,9 @@ import { Box, Grid, Paper, Typography } from '@mui/material'
 const teamMembers = [
   { name: 'Damien SALEM', role: 'Chef de projet', class: 'M2' },
   { name: 'Kenuhn RIMBERT', role: 'Back-end', class: 'M1' },
-  { name: 'Hadjar Adam ABAKAR', role: 'Back-end', class: 'M2' },
+  { name: 'Hadjar Adam ABAKAR', role: 'Back-end', class: 'M1' },
   { name: 'Bilele AZZOUNI', role: 'Back-end', class: 'M1' },
-  { name: 'Said BOHUI', role: 'Front-End', class: 'M1' },
+  { name: 'Said BOHUI', role: 'Front-End', class: 'M2' },
   { name: 'Madi NIAKATE', role: 'Front-End', class: 'M1' },
   { name: 'Allan CHAUVIN', role: 'IA', class: 'M2' },
   { name: 'Joris Monteillet', role: 'IA', class: 'M2' },
