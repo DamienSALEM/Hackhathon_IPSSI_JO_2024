@@ -214,12 +214,12 @@ async def predi_pib_results_jo(request:Request)->dict:
     """
     
     try:
-        data={}
+        data_req={}
         merged_df=pd.read_csv("API/csv/merged_pib.csv")
-        data['country_code']=request.get('country_code')
-        data['year']=[2024]
-        data['pib']= merged_df.loc[merged_df.groupby('country_code')['year'].idxmax()]
-        mock_df = pd.DataFrame(request)
+        data_req['country_code']=request.get('country_code')
+        data_req['year']=[2024]
+        data_req['pib']= merged_df.loc[merged_df.groupby('country_code')['year'].idxmax()]
+        mock_df = pd.DataFrame(data_req)
         scaler = MinMaxScaler()
         scaler.fit(merged_df[['pib']])
 
