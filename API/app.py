@@ -203,7 +203,7 @@ async def predi_pib_results_jo(request:Request)->dict:
     Args:
         request (Request): should be a json like this:
         {
-            'Country Code': ['AFG', 'ALG', 'ZIM']
+            'country_code': ['AFG', 'ALG', 'ZIM']
         }
 
     Raises:
@@ -214,7 +214,7 @@ async def predi_pib_results_jo(request:Request)->dict:
     """
     
     try:
-        merged_df=pd.read_csv("merged_pib.csv")
+        merged_df=pd.read_csv("csv/merged_pib.csv")
         request['year']=[2024]
         request['pib']= merged_df.loc[merged_df.groupby('country_code')['year'].idxmax()]
         mock_df = pd.DataFrame(request)
@@ -247,6 +247,174 @@ def get_country_data(db, table):
     stmt = select(table.c.country_name, table.c.country_3_letter_code).distinct()
     results = db.execute(stmt).fetchall()
     return results
+
+@app.post("/predictions/home_soil")
+async def predi_home_results_jo(request:Request)->dict:
+    dict_pays=['Australia',
+        'Austria',
+        'Denmark',
+        'France',
+        'Germany',
+        'Great Britain',
+        'Greece',
+        'Hungary',
+        'MIX',
+        'Switzerland',
+        'United States of America',
+        'Belgium',
+        'Bohemia',
+        'Canada',
+        'Cuba',
+        'India',
+        'Italy',
+        'Luxembourg',
+        'Netherlands',
+        'Norway',
+        'Spain',
+        'Sweden',
+        'Australasia',
+        'Finland',
+        'Russian Federation',
+        'South Africa',
+        'Brazil',
+        'Czechoslovakia',
+        'Estonia',
+        'Japan',
+        'New Zealand',
+        'Argentina',
+        'Haiti',
+        'Poland',
+        'Portugal',
+        'Romania',
+        'Uruguay',
+        'Yugoslavia',
+        'Chile',
+        'Egypt',
+        'Ireland',
+        'Philippines',
+        'Latvia',
+        'Mexico',
+        'Turkey',
+        'Islamic Republic of Iran',
+        'Jamaica',
+        'Panama',
+        'Peru',
+        'Puerto Rico',
+        'Republic of Korea',
+        'Sri Lanka',
+        'Trinidad and Tobago',
+        'Bulgaria',
+        'Lebanon',
+        'Soviet Union',
+        'Venezuela',
+        'Bahamas',
+        'Iceland',
+        'Pakistan',
+        'Chinese Taipei',
+        'Ethiopia',
+        'Ghana',
+        'Iraq',
+        'Morocco',
+        'Singapore',
+        'United Arab Republic',
+        'West Indies Federation',
+        'Kenya',
+        'Nigeria',
+        'Tunisia',
+        'Cameroon',
+        'Federal Republic of Germany',
+        'German Democratic Republic (Germany)',
+        'Mongolia',
+        'Uganda',
+        'Colombia',
+        "Democratic People's Republic of Korea",
+        'Niger',
+        'Bermuda',
+        'Thailand',
+        'Guyana',
+        'United Republic of Tanzania',
+        'Zimbabwe',
+        'Algeria',
+        'Dominican Republic',
+        'Ivory Coast',
+        "People's Republic of China",
+        'Syrian Arab Republic',
+        'Zambia',
+        'Costa Rica',
+        'Djibouti',
+        'Indonesia',
+        'Netherlands Antilles',
+        'Senegal',
+        'Suriname',
+        'US Virgin Islands',
+        'Croatia',
+        'Independent Olympic Athletes',
+        'Israel',
+        'Lithuania',
+        'Malaysia',
+        'Namibia',
+        'Qatar',
+        'Slovenia',
+        'Unified Team',
+        'Armenia',
+        'Azerbaijan',
+        'Belarus',
+        'Burundi',
+        'Czech Republic',
+        'Ecuador',
+        'Georgia',
+        'Hong Kong, China',
+        'Kazakhstan',
+        'Mozambique',
+        'Republic of Moldova',
+        'Serbia and Montenegro',
+        'Slovakia',
+        'Tonga',
+        'Ukraine',
+        'Uzbekistan',
+        'Barbados',
+        'Kuwait',
+        'Kyrgyzstan',
+        'Saudi Arabia',
+        'The Former Yugoslav Republic of Macedonia',
+        'Vietnam',
+        'Eritrea',
+        'Paraguay',
+        'United Arab Emirates',
+        'Afghanistan',
+        'Mauritius',
+        'Samoa',
+        'Serbia',
+        'Sudan',
+        'Tajikistan',
+        'Togo',
+        'Bahrain',
+        'Botswana',
+        'Cyprus',
+        'Gabon',
+        'Grenada',
+        'Guatemala',
+        'Montenegro',
+        'Fiji',
+        'Jordan',
+        'Kosovo',
+        'Burkina Faso',
+        "Côte d'Ivoire",
+        'North Macedonia',
+        'ROC',
+        'San Marino',
+        'Turkmenistan']
+    pred_2024 = pd.DataFrame({
+        'game_year': [2024],
+        'country_id': [dict_pays[request["country"]]],
+        'participates_on_home_soil': [1]
+    })
+    
+    pred_2024 = pred_2024.values
+    model=load_model("models/my_model.keras")
+    pred_2024_tf = model.predict(pred_2024)
+    
+    return {"Prediction":pred_2024_tf}
 
 @app.get("/country_codes")
 async def country_codes():
