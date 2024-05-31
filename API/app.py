@@ -106,7 +106,6 @@ async def get_unique_column_values(request: Request):
         return {column_name: unique_values}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-        
 
 def search_by_tags_repository(db: Session, table_name: str,  filters: dict):
     try:
@@ -179,5 +178,35 @@ def get_athletes () :
         db.close()
         tunnel.stop()
         return results
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+def get_country_data(db, table):
+    stmt = select(table.c.country_name, table.c.country_3_letter_code).distinct()
+    results = db.execute(stmt).fetchall()
+    return results
+
+@app.get("/country_codes")
+async def country_codes():
+    try:
+        metadata = get_metadata()
+        table = metadata['olympic_results']
+        db = metadata["session"]
+        tunnel = metadata["tunnel"]
+        results = get_country_data(db, table)
+
+        # Construire le dictionnaire de correspondance
+        correspondence = {}
+        for country_name, country_code in results:
+            if country_name not in correspondence:
+                correspondence[country_name] = set()
+            correspondence[country_name].add(country_code)
+
+        # Convertir les ensembles en listes pour la sérialisation JSON
+        correspondence = {k: list(v) for k, v in correspondence.items()}
+
+        return correspondence
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
