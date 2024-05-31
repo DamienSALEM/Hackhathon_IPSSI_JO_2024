@@ -203,9 +203,7 @@ async def predi_pib_results_jo(request:Request)->dict:
     Args:
         request (Request): should be a json like this:
         {
-            'Country Code': ['AFG', 'ALG', 'ZIM'],
-            'year': [2024, 2024, 2024],
-            'pib': [1e9, 1.5e10, 1.2e10]
+            'Country Code': ['AFG', 'ALG', 'ZIM']
         }
 
     Raises:
@@ -216,8 +214,10 @@ async def predi_pib_results_jo(request:Request)->dict:
     """
     
     try:
-        mock_df = pd.DataFrame(request)
         merged_df=pd.read_csv("merged_pib.csv")
+        request['year']=[2024]
+        request['pib']= merged_df.loc[merged_df.groupby('country_code')['year'].idxmax()]
+        mock_df = pd.DataFrame(request)
         scaler = MinMaxScaler()
         scaler.fit(merged_df[['pib']])
 
